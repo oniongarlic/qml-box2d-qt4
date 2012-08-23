@@ -26,7 +26,7 @@
 
 #include <QPainter>
 
-class DebugDraw : public b2DebugDraw
+class DebugDraw : public b2Draw
 {
 public:
     DebugDraw(QPainter *painter, Box2DWorld *world);

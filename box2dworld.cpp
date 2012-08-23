@@ -135,10 +135,9 @@ void Box2DWorld::componentComplete()
 {
     QDeclarativeItem::componentComplete();
 
-    const b2Vec2 gravity(mGravity.x(), mGravity.y());
-    bool doSleep = true;
+    const b2Vec2 gravity(mGravity.x(), mGravity.y());    
 
-    mWorld = new b2World(gravity, doSleep);
+    mWorld = new b2World(gravity);
     mWorld->SetContactListener(mContactListener);
     mWorld->SetDestructionListener(mDestructionListener);
 
