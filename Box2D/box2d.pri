@@ -6,7 +6,8 @@ SOURCES = \
         $$PWD/Common/*.cpp \
         $$PWD/Dynamics/*.cpp \
         $$PWD/Dynamics/Contacts/*.cpp \
-        $$PWD/Dynamics/Joints/*.cpp
+        $$PWD/Dynamics/Joints/*.cpp \
+        $$PWD/Rope/*.cpp
 
 HEADERS = \
 	$$PWD/Box2D.h \
@@ -15,4 +16,6 @@ HEADERS = \
         $$PWD/Common/*.h \
         $$PWD/Dynamics/*.h \
         $$PWD/Dynamics/Contacts/*.h \
-        $$PWD/Dynamics/Joints/*.h
+        $$PWD/Dynamics/Joints/*.h \
+        $$PWD/Rope/*.h
+
