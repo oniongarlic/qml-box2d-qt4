@@ -85,7 +85,8 @@ Box2DWorld::Box2DWorld(QDeclarativeItem *parent) :
     mPositionIterations(10),
     mFrameTime(1000 / 60),
     mGravity(qreal(0), qreal(-10)),
-    mIsRunning(true)
+    mIsRunning(true),
+    mAllowSleeping(true)
 {
     connect(mDestructionListener, SIGNAL(fixtureDestroyed(Box2DFixture*)),
             this, SLOT(fixtureDestroyed(Box2DFixture*)));
@@ -101,6 +102,19 @@ Box2DWorld::~Box2DWorld()
     delete mWorld;
     delete mContactListener;
     delete mDestructionListener;
+}
+
+void Box2DWorld::setAllowSleeping(bool allowSleeping)
+{
+    if (mAllowSleeping == allowSleeping)
+        return;
+
+    mAllowSleeping=allowSleeping;
+
+    if (mWorld)
+        mWorld->SetAllowSleeping(allowSleeping);
+
+    emit allowSleepingChanged();
 }
 
 void Box2DWorld::setRunning(bool running)

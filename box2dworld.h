@@ -44,6 +44,7 @@ class Box2DWorld : public QDeclarativeItem
 {
     Q_OBJECT
     Q_PROPERTY(bool running READ isRunning WRITE setRunning NOTIFY runningChanged)
+    Q_PROPERTY(bool allowSleeping READ getAllowSleeping WRITE setAllowSleeping NOTIFY allowSleepingChanged)
     Q_PROPERTY(float timeStep READ timeStep WRITE setTimeStep)
     Q_PROPERTY(int velocityIterations READ velocityIterations WRITE setVelocityIterations)
     Q_PROPERTY(int positionIterations READ positionIterations WRITE setPositionIterations)
@@ -63,6 +64,9 @@ public:
 
     bool isRunning() const { return mIsRunning; }
     void setRunning(bool running);
+
+    bool getAllowSleeping() const { return mAllowSleeping; }
+    void setAllowSleeping(bool running);
 
     /**
      * The number of velocity iterations used to process one step.
@@ -108,6 +112,7 @@ private slots:
 signals:
     void gravityChanged();
     void runningChanged();
+    void allowSleepingChanged();
     void stepped();
 
 protected:
@@ -124,6 +129,7 @@ private:
     int mFrameTime;
     QPointF mGravity;
     bool mIsRunning;
+    bool mAllowSleeping;
     QBasicTimer mTimer;
     QList<Box2DBody*> mBodies;
 };
