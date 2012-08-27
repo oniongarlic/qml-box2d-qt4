@@ -213,3 +213,23 @@ b2Shape *Box2DPolygon::createShape()
     delete[] vertices;
     return shape;
 }
+
+b2Shape *Box2DEdge::createShape()
+{
+    const int count = mVertices.length();
+    if (count != 2 ) {
+        qWarning() << "Edge: Invalid number of vertices:" << count;
+        return 0;
+    }
+
+    b2Vec2 *vertices = new b2Vec2[count];
+    for (int i = 0; i < count; ++i) {
+        const QPointF &point = mVertices.at(i).toPointF();
+        vertices[i].Set(point.x() / scaleRatio, -point.y() / scaleRatio);
+    }
+
+    b2EdgeShape *shape = new b2EdgeShape;
+    shape->Set(vertices[0], vertices[1]);
+    delete[] vertices;
+    return shape;
+}

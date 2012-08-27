@@ -184,6 +184,34 @@ private:
     QVariantList mVertices;
 };
 
+class Box2DEdge : public Box2DFixture
+{
+    Q_OBJECT
+
+    Q_PROPERTY(QVariantList vertices READ vertices WRITE setVertices NOTIFY verticesChanged)
+
+public:
+    explicit Box2DEdge(QDeclarativeItem *parent = 0) :
+        Box2DFixture(parent)
+    { }
+
+    QVariantList vertices() const { return mVertices; }
+    void setVertices(const QVariantList &vertices) {
+        if (vertices == mVertices)
+            return;
+        mVertices = vertices;
+        emit verticesChanged();
+    }
+
+signals:
+    void verticesChanged();
+
+protected:
+    b2Shape *createShape();
+
+private:
+    QVariantList mVertices;
+};
 
 /**
  * Convenience function to get the Box2DFixture wrapping a b2Fixture.
