@@ -37,6 +37,7 @@ class Box2DBody : public QDeclarativeItem
     Q_OBJECT
 
     Q_ENUMS(BodyType)
+    Q_PROPERTY(qreal gravityScale READ gravityScale  WRITE setGravityScale NOTIFY gravityScaleChanged)
     Q_PROPERTY(qreal linearDamping READ linearDamping WRITE setLinearDamping NOTIFY linearDampingChanged)
     Q_PROPERTY(qreal angularDamping READ angularDamping WRITE setAngularDamping NOTIFY angularDampingChanged)
     Q_PROPERTY(BodyType bodyType READ bodyType WRITE setBodyType NOTIFY bodyTypeChanged)
@@ -56,6 +57,9 @@ public:
 
     explicit Box2DBody(QDeclarativeItem *parent = 0);
     ~Box2DBody();
+
+    qreal gravityScale() const { return mGravityScale; }
+    void setGravityScale(qreal gravityScale);
 
     qreal linearDamping() const { return mLinearDamping; }
     void setLinearDamping(qreal linearDamping);
@@ -100,6 +104,7 @@ protected:
     void geometryChanged(const QRectF &newGeometry, const QRectF &oldGeometry);
 
 signals:
+    void gravityScaleChanged();
     void linearDampingChanged();
     void angularDampingChanged();
     void bodyTypeChanged();
@@ -118,6 +123,7 @@ private:
 
     b2Body *mBody;
     b2World *mWorld;
+    qreal mGravityScale;
     qreal mLinearDamping;
     qreal mAngularDamping;
     BodyType mBodyType;

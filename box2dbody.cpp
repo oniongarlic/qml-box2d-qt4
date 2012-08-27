@@ -29,6 +29,7 @@ Box2DBody::Box2DBody(QDeclarativeItem *parent) :
     QDeclarativeItem(parent),
     mBody(0),
     mWorld(0),
+    mGravityScale(1.0f),
     mLinearDamping(0.0f),
     mAngularDamping(0.0f),
     mBodyType(Dynamic),
@@ -46,6 +47,17 @@ Box2DBody::Box2DBody(QDeclarativeItem *parent) :
 Box2DBody::~Box2DBody()
 {
     cleanup(mWorld);
+}
+
+void Box2DBody::setGravityScale(qreal gravityScale)
+{
+    if (mGravityScale == gravityScale)
+        return;
+
+    mGravityScale = gravityScale;
+    if (mBody)
+        mBody->SetGravityScale(gravityScale);
+    emit gravityScaleChanged();
 }
 
 void Box2DBody::setLinearDamping(qreal linearDamping)
@@ -171,6 +183,7 @@ void Box2DBody::initialize(b2World *world)
     bodyDef.bullet = mBullet;
     bodyDef.allowSleep = mSleepingAllowed;
     bodyDef.fixedRotation = mFixedRotation;
+    bodyDef.gravityScale = mGravityScale;
 
     mBody = world->CreateBody(&bodyDef);
     mInitializePending = false;
