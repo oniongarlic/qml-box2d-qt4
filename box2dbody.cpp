@@ -292,3 +292,15 @@ QPointF Box2DBody::getWorldCenter() const
     }
     return worldCenter;
 }
+
+QPointF Box2DBody::getWorldPoint(const QPointF &point) const
+{
+    QPointF worldPoint;
+
+    if (mBody) {
+        const b2Vec2 &wpoint = mBody->GetWorldPoint(b2Vec2(point.x(), point.y()));
+        worldPoint.setX(wpoint.x * scaleRatio);
+        worldPoint.setY(-wpoint.y * scaleRatio);
+    }
+    return worldPoint;
+}

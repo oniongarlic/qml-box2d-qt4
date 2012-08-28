@@ -95,6 +95,7 @@ public:
                                         const QPointF &point);
     Q_INVOKABLE void applyTorque(qreal torque);
     Q_INVOKABLE QPointF getWorldCenter() const;
+    Q_INVOKABLE QPointF getWorldPoint(const QPointF &point) const;
 
     void componentComplete();
 
