@@ -46,6 +46,7 @@ class Box2DBody : public QDeclarativeItem
     Q_PROPERTY(bool fixedRotation READ fixedRotation WRITE setFixedRotation NOTIFY fixedRotationChanged)
     Q_PROPERTY(bool active READ active WRITE setActive)
     Q_PROPERTY(QPointF linearVelocity READ linearVelocity WRITE setLinearVelocity NOTIFY linearVelocityChanged)
+    Q_PROPERTY(float angularVelocity READ angularVelocity WRITE setAngularVelocity NOTIFY angularVelocityChanged)
     Q_PROPERTY(QDeclarativeListProperty<Box2DFixture> fixtures READ fixtures)
 
 public:
@@ -85,6 +86,11 @@ public:
     QPointF linearVelocity() const { return mLinearVelocity; }
     void setLinearVelocity(const QPointF &linearVelocity);
 
+    float angularVelocity() const { return mAngularVelocity; }
+    void setAngularVelocity(float angularVelocity);
+
+    void resetVelocities();
+
     QDeclarativeListProperty<Box2DFixture> fixtures();
 
     void initialize(b2World *world);
@@ -113,6 +119,7 @@ signals:
     void sleepingAllowedChanged();
     void fixedRotationChanged();
     void linearVelocityChanged();
+    void angularVelocityChanged();
     void bodyCreated();
 
 private slots:
@@ -133,6 +140,7 @@ private:
     bool mFixedRotation;
     bool mActive;
     QPointF mLinearVelocity;
+    float mAngularVelocity;
     bool mSynchronizing;
     bool mInitializePending;
     QList<Box2DFixture*> mFixtures;

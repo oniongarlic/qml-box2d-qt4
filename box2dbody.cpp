@@ -148,6 +148,23 @@ void Box2DBody::setLinearVelocity(const QPointF &linearVelocity)
     emit linearVelocityChanged();
 }
 
+void Box2DBody::setAngularVelocity(float angularVelocity)
+{
+    if (mAngularVelocity == angularVelocity)
+        return;
+
+    mAngularVelocity = angularVelocity;
+    if (mBody)
+        mBody->SetAngularVelocity(angularVelocity);
+    emit angularVelocityChanged();
+}
+
+void Box2DBody::resetVelocities()
+{
+    mBody->SetLinearVelocity(b2Vec2(0, 0));
+    mBody->SetAngularVelocity(0);
+}
+
 QDeclarativeListProperty<Box2DFixture> Box2DBody::fixtures()
 {
     return QDeclarativeListProperty<Box2DFixture>(this, 0,
