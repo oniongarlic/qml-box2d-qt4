@@ -27,6 +27,7 @@ SOURCES += box2dplugin.cpp \
     box2ddistancejoint.cpp \
     box2dprismaticjoint.cpp \
     box2drevolutejoint.cpp \
+    box2dweldjoint.cpp \
     box2ddestructionlistener.cpp
 
 HEADERS += \
@@ -39,4 +40,14 @@ HEADERS += \
     box2ddistancejoint.h \
     box2dprismaticjoint.h \
     box2drevolutejoint.h \
+    box2dweldjoint.h \
     box2ddestructionlistener.h
+
+OTHER_FILES += \
+    qtc_packaging/debian_harmattan/rules \
+    qtc_packaging/debian_harmattan/README \
+    qtc_packaging/debian_harmattan/manifest.aegis \
+    qtc_packaging/debian_harmattan/copyright \
+    qtc_packaging/debian_harmattan/control \
+    qtc_packaging/debian_harmattan/compat \
+    qtc_packaging/debian_harmattan/changelog
