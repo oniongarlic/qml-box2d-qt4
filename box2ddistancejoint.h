@@ -61,6 +61,9 @@ public:
     void createJoint();
     void cleanup(b2World *world);
 
+    Q_INVOKABLE void release();
+    Q_INVOKABLE void grab();
+
 signals:
     void lengthChanged();
     void frequencyHzChanged();

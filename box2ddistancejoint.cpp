@@ -159,6 +159,20 @@ void Box2DDistanceJoint::createJoint()
     mInitializePending = false;
 }
 
+void Box2DDistanceJoint::release()
+{
+    if (!mReleased)
+        mReleased = true;
+    cleanup(world());
+}
+
+void Box2DDistanceJoint::grab()
+{
+    if (mReleased)
+        mReleased = false;
+    createJoint();
+}
+
 void Box2DDistanceJoint::cleanup(b2World *world)
 {
     if (mDistanceJoint && bodyA() && bodyB()) {

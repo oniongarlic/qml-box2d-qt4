@@ -37,6 +37,7 @@ class Box2DJoint : public QObject
     Q_PROPERTY(Box2DWorld *world READ box2DWorld WRITE setWorld NOTIFY worldChanged)
     Q_PROPERTY(Box2DBody *bodyA READ bodyA WRITE setBodyA NOTIFY bodyAChanged)
     Q_PROPERTY(Box2DBody *bodyB READ bodyB WRITE setBodyB NOTIFY bodyBChanged)
+    Q_PROPERTY(bool released READ released NOTIFY releasedChanged)
 
 public:
     explicit Box2DJoint(QObject *parent = 0);
@@ -55,6 +56,8 @@ public:
 
     void initialize();
 
+    bool released() const {return mReleased;};
+
     virtual void nullifyJoint() = 0;
     virtual void cleanup(b2World *world) = 0;
 
@@ -71,9 +74,11 @@ signals:
     void worldChanged();
     void bodyAChanged();
     void bodyBChanged();
+    void releasedChanged();
 
 protected:
     bool mInitializePending;
+    bool mReleased;
 
 private:
     Box2DWorld *mWorld;

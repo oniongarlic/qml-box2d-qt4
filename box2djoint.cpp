@@ -28,7 +28,8 @@ Box2DJoint::Box2DJoint(QObject *parent) :
     mWorld(0),
     mCollideConnected(false),
     mBodyA(0),
-    mBodyB(0)
+    mBodyB(0),
+    mReleased(false)
 {
 }
 
