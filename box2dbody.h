@@ -89,19 +89,18 @@ public:
     float angularVelocity() const { return mAngularVelocity; }
     void setAngularVelocity(float angularVelocity);
 
-    void resetVelocities();
-
     QDeclarativeListProperty<Box2DFixture> fixtures();
 
     void initialize(b2World *world);
     void synchronize();
     void cleanup(b2World *world);
 
-    Q_INVOKABLE void applyLinearImpulse(const QPointF &impulse,
-                                        const QPointF &point);
+    Q_INVOKABLE void applyLinearImpulse(const QPointF &impulse, const QPointF &point);
     Q_INVOKABLE void applyTorque(qreal torque);
     Q_INVOKABLE QPointF getWorldCenter() const;
     Q_INVOKABLE QPointF getWorldPoint(const QPointF &point) const;
+
+    Q_INVOKABLE void resetVelocities();
 
     void componentComplete();
 
