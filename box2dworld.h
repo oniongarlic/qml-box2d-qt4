@@ -24,6 +24,7 @@
 #include <QDeclarativeItem>
 #include <QList>
 #include <QBasicTimer>
+#include <QTime>
 
 class Box2DBody;
 class Box2DFixture;
@@ -50,6 +51,8 @@ class Box2DWorld : public QDeclarativeItem
     Q_PROPERTY(int positionIterations READ positionIterations WRITE setPositionIterations)
     Q_PROPERTY(int frameTime READ frameTime WRITE setFrameTime)
     Q_PROPERTY(QPointF gravity READ gravity WRITE setGravity NOTIFY gravityChanged)
+    Q_PROPERTY(bool reportFps READ reportFps WRITE setReportFps NOTIFY reportFpsChanged)
+    Q_PROPERTY(float fps READ getFps NOTIFY fpsChanged)
 
 public:
     explicit Box2DWorld(QDeclarativeItem *parent = 0);
@@ -67,6 +70,11 @@ public:
 
     bool getAllowSleeping() const { return mAllowSleeping; }
     void setAllowSleeping(bool running);
+
+    bool reportFps() const { return mReportFps; }
+    void setReportFps(bool reportfps);
+
+    float getFps() const { return mFps; }
 
     /**
      * The number of velocity iterations used to process one step.
@@ -102,8 +110,13 @@ public:
     void componentComplete();
 
     void registerBody(Box2DBody *body);
+    void registerJoint(Box2DJoint *joint);
 
     b2World *world() const { return mWorld; }
+
+    Q_INVOKABLE void stop();
+    Q_INVOKABLE void start();
+    Q_INVOKABLE void resetVelocities();
 
 private slots:
     void unregisterBody();
@@ -114,6 +127,8 @@ signals:
     void runningChanged();
     void allowSleepingChanged();
     void stepped();
+    void reportFpsChanged();
+    void fpsChanged();
 
 protected:
     void timerEvent(QTimerEvent *);
@@ -132,6 +147,10 @@ private:
     bool mAllowSleeping;
     QBasicTimer mTimer;
     QList<Box2DBody*> mBodies;
+    QTime time;
+    int mFps;
+    bool mReportFps;
+    float lastTime;
 };
 
 QML_DECLARE_TYPE(Box2DWorld)

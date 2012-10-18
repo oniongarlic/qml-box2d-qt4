@@ -12,7 +12,7 @@ class Box2DWeldJoint : public Box2DJoint
 {
     Q_OBJECT
 public:
-    explicit Box2DWeldJoint(QObject *parent = 0);
+    explicit Box2DWeldJoint(QDeclarativeItem *parent = 0);
 
     void createJoint();
     void cleanup(b2World *world);

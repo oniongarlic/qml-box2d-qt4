@@ -2,7 +2,7 @@
 #include "box2dbody.h"
 #include "box2dworld.h"
 
-Box2DWeldJoint::Box2DWeldJoint(QObject *parent) :
+Box2DWeldJoint::Box2DWeldJoint(QDeclarativeItem *parent) :
     Box2DJoint(parent),
     mWeldJointDef(),
     mWeldJoint(0)

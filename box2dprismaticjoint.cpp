@@ -23,7 +23,7 @@
 #include "box2dworld.h"
 #include "box2dbody.h"
 
-Box2DPrismaticJoint::Box2DPrismaticJoint(QObject *parent) :
+Box2DPrismaticJoint::Box2DPrismaticJoint(QDeclarativeItem *parent) :
     Box2DJoint(parent),
     mPrismaticJointDef(),
     mPrismaticJoint(0)

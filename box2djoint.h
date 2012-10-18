@@ -22,6 +22,7 @@
 #define BOX2DJOINT_H
 
 #include <QObject>
+#include <QDeclarativeItem>
 #include <QPointF>
 #include <Box2D.h>
 
@@ -29,7 +30,7 @@ class b2World;
 class Box2DBody;
 class Box2DWorld;
 
-class Box2DJoint : public QObject
+class Box2DJoint : public QDeclarativeItem
 {
     Q_OBJECT
 
@@ -40,7 +41,7 @@ class Box2DJoint : public QObject
     Q_PROPERTY(bool released READ released NOTIFY releasedChanged)
 
 public:
-    explicit Box2DJoint(QObject *parent = 0);
+    explicit Box2DJoint(QDeclarativeItem *parent = 0);
 
     bool collideConnected() const;
     void setCollideConnected(bool collideConnected);
@@ -54,7 +55,8 @@ public:
     Box2DBody *bodyB() const;
     void setBodyB(Box2DBody *bodyB);
 
-    void initialize();
+    void initialize(Box2DWorld *world);
+    void componentComplete();
 
     bool released() const {return mReleased;};
 

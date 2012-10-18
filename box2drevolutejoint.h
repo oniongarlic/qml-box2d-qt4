@@ -41,7 +41,7 @@ class Box2DRevoluteJoint : public Box2DJoint
     Q_PROPERTY(QPointF localAnchorA READ localAnchorA WRITE setLocalAnchorA NOTIFY localAnchorAChanged)
 
 public:
-    explicit Box2DRevoluteJoint(QObject *parent = 0);
+    explicit Box2DRevoluteJoint(QDeclarativeItem *parent = 0);
     ~Box2DRevoluteJoint();
 
     float lowerAngle() const;

@@ -23,7 +23,7 @@
 #include "box2dworld.h"
 #include "box2dbody.h"
 
-Box2DRevoluteJoint::Box2DRevoluteJoint(QObject *parent) :
+Box2DRevoluteJoint::Box2DRevoluteJoint(QDeclarativeItem *parent) :
     Box2DJoint(parent),
     mRevoluteJointDef(),
     mRevoluteJoint(0),

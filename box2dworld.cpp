@@ -86,7 +86,8 @@ Box2DWorld::Box2DWorld(QDeclarativeItem *parent) :
     mFrameTime(1000 / 60),
     mGravity(qreal(0), qreal(-10)),
     mIsRunning(true),
-    mAllowSleeping(true)
+    mAllowSleeping(true),
+    mFps(0)
 {
     connect(mDestructionListener, SIGNAL(fixtureDestroyed(Box2DFixture*)),
             this, SLOT(fixtureDestroyed(Box2DFixture*)));
@@ -159,6 +160,8 @@ void Box2DWorld::componentComplete()
         if (Box2DBody *body = dynamic_cast<Box2DBody*>(child)) {
             registerBody(body);
             connect(body, SIGNAL(destroyed()), this, SLOT(unregisterBody()));
+        } else if (Box2DJoint *joint = dynamic_cast<Box2DJoint*>(child)) {
+            registerJoint(joint);
         }
 
     if (mIsRunning)
@@ -183,6 +186,11 @@ void Box2DWorld::unregisterBody()
 {
     Box2DBody *body = static_cast<Box2DBody*>(sender());
     mBodies.removeOne(body);
+}
+
+void Box2DWorld::registerJoint(Box2DJoint *joint)
+{
+    joint->initialize(this);
 }
 
 void Box2DWorld::fixtureDestroyed(Box2DFixture *fixture)
@@ -244,9 +252,28 @@ QVariant Box2DWorld::itemChange(GraphicsItemChange change,
             if (Box2DBody *body = dynamic_cast<Box2DBody*>(child)) {
                 registerBody(body);
                 connect(body, SIGNAL(destroyed()), this, SLOT(unregisterBody()));
+            } else if (Box2DJoint *joint = dynamic_cast<Box2DJoint*>(child)) {
+                registerJoint(joint);
             }
         }
     }
 
     return QDeclarativeItem::itemChange(change, value);
 }
+
+void Box2DWorld::stop()
+{
+    setRunning(false);
+}
+
+void Box2DWorld::start()
+{
+    setRunning(true);
+}
+
+void Box2DWorld::resetVelocities()
+{
+    foreach (Box2DBody *body, mBodies)
+        body->resetVelocities();
+}
+

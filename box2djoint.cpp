@@ -22,8 +22,8 @@
 #include "box2dbody.h"
 #include "box2dworld.h"
 
-Box2DJoint::Box2DJoint(QObject *parent) :
-    QObject(parent),
+Box2DJoint::Box2DJoint(QDeclarativeItem *parent) :
+    QDeclarativeItem(parent),
     mInitializePending(false),
     mWorld(0),
     mCollideConnected(false),
@@ -60,7 +60,7 @@ void Box2DJoint::setWorld(Box2DWorld *world)
 
     mWorld = world;
     emit worldChanged();
-    initialize();
+    initialize(mWorld);
 }
 
 Box2DBody *Box2DJoint::bodyA() const
@@ -76,7 +76,7 @@ void Box2DJoint::setBodyA(Box2DBody *bodyA)
     if (bodyA->body() != NULL) {
         mBodyA = bodyA;
         emit bodyAChanged();
-        initialize();
+        initialize(mWorld);
     }
     else
         connect(bodyA, SIGNAL(bodyCreated()), this, SLOT(bodyACreated()));
@@ -95,14 +95,18 @@ void Box2DJoint::setBodyB(Box2DBody *bodyB)
     if (bodyB->body() != NULL) {
         mBodyB = bodyB;
         emit bodyBChanged();
-        initialize();
+        initialize(mWorld);
     }
     else
         connect(bodyB, SIGNAL(bodyCreated()), this, SLOT(bodyBCreated()));
 }
 
-void Box2DJoint::initialize()
+void Box2DJoint::initialize(Box2DWorld *world)
 {
+
+    if (world != NULL)
+        mWorld = world;
+
     if (!mBodyA || !mBodyB || !mWorld) {
         // When components are created dynamically, they get their parent
         // assigned before they have been completely initialized. In that case
@@ -114,6 +118,14 @@ void Box2DJoint::initialize()
     createJoint();
 }
 
+void Box2DJoint::componentComplete()
+{
+    QDeclarativeItem::componentComplete();
+
+    if (mInitializePending)
+        initialize(mWorld);
+}
+
 b2World *Box2DJoint::world() const
 {
     return mWorld->world();
@@ -123,12 +135,12 @@ void Box2DJoint::bodyACreated()
 {
     mBodyA = static_cast<Box2DBody*>(sender());
     emit bodyAChanged();
-    initialize();
+    initialize(mWorld);
 }
 
 void Box2DJoint::bodyBCreated()
 {
     mBodyB = static_cast<Box2DBody*>(sender());
     emit bodyBChanged();
-    initialize();
+    initialize(mWorld);
 }

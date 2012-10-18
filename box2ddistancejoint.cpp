@@ -23,7 +23,7 @@
 #include "box2dworld.h"
 #include "box2dbody.h"
 
-Box2DDistanceJoint::Box2DDistanceJoint(QObject *parent) :
+Box2DDistanceJoint::Box2DDistanceJoint(QDeclarativeItem *parent) :
     Box2DJoint(parent),
     mDistanceJointDef(),
     mDistanceJoint(0),
