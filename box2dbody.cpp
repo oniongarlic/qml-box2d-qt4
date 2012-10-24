@@ -328,6 +328,10 @@ QPointF Box2DBody::getWorldPoint(const QPointF &point) const
     return worldPoint;
 }
 
+float Box2DBody::getMass() const { return mBody ? mBody->GetMass() : 0.0; }
+float Box2DBody::getInertia() const { return mBody ? mBody->GetInertia() : 0.0; }
+
+
 void Box2DBody::debugDump()
 {
     if (mBody)

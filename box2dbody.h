@@ -47,6 +47,9 @@ class Box2DBody : public QDeclarativeItem
     Q_PROPERTY(bool active READ active WRITE setActive)
     Q_PROPERTY(QPointF linearVelocity READ linearVelocity WRITE setLinearVelocity NOTIFY linearVelocityChanged)
     Q_PROPERTY(float angularVelocity READ angularVelocity WRITE setAngularVelocity NOTIFY angularVelocityChanged)
+    Q_PROPERTY(float mass READ getMass)
+    Q_PROPERTY(float inertia READ getInertia)
+
     Q_PROPERTY(QDeclarativeListProperty<Box2DFixture> fixtures READ fixtures)
 
 public:
@@ -88,6 +91,9 @@ public:
 
     float angularVelocity() const { return mAngularVelocity; }
     void setAngularVelocity(float angularVelocity);
+
+    float getMass() const;
+    float getInertia() const;
 
     QDeclarativeListProperty<Box2DFixture> fixtures();
 
