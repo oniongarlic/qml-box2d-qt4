@@ -177,20 +177,6 @@ void Box2DRevoluteJoint::createJoint()
     mInitializePending = false;
 }
 
-void Box2DRevoluteJoint::release()
-{
-    if (!mReleased)
-        mReleased = true;
-    cleanup(world());
-}
-
-void Box2DRevoluteJoint::grab()
-{
-    if (mReleased)
-        mReleased = false;
-    createJoint();
-}
-
 void Box2DRevoluteJoint::cleanup(b2World *world)
 {
     if (mRevoluteJoint && bodyA() && bodyB()) {
