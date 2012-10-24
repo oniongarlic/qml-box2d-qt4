@@ -142,7 +142,7 @@ void Box2DBody::setLinearVelocity(const QPointF &linearVelocity)
         return;
 
     mLinearVelocity = linearVelocity;
-    if (mBody)
+    if (mBody && !mSynchronizing)
         mBody->SetLinearVelocity(b2Vec2(mLinearVelocity.x() / scaleRatio,
                                         -mLinearVelocity.y() / scaleRatio));
     emit linearVelocityChanged();
