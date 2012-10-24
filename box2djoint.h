@@ -63,6 +63,9 @@ public:
     virtual void nullifyJoint() = 0;
     virtual void cleanup(b2World *world) = 0;
 
+    Q_INVOKABLE void release();
+    Q_INVOKABLE void grab();
+
 protected:
     virtual void createJoint() = 0;
     b2World *world() const;
