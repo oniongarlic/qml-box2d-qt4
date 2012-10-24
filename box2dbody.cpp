@@ -327,3 +327,9 @@ QPointF Box2DBody::getWorldPoint(const QPointF &point) const
     }
     return worldPoint;
 }
+
+void Box2DBody::debugDump()
+{
+    if (mBody)
+        mBody->Dump();
+}

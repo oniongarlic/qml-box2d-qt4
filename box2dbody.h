@@ -101,6 +101,7 @@ public:
     Q_INVOKABLE QPointF getWorldPoint(const QPointF &point) const;
 
     Q_INVOKABLE void resetVelocities();
+    Q_INVOKABLE void debugDump();
 
     void componentComplete();
 
