@@ -236,6 +236,12 @@ void Box2DBody::synchronize()
     setLinearVelocity(QPointF(linearVelocity.x * scaleRatio,
                               -linearVelocity.y * scaleRatio));
 
+    const float32 newAngularVelocity = mBody->GetAngularVelocity();
+    if (!qFuzzyCompare(newAngularVelocity, mAngularVelocity)) {
+        mAngularVelocity = newAngularVelocity;
+        emit angularVelocityChanged();
+    }
+
     mSynchronizing = false;
 }
 
