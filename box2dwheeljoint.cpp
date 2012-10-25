@@ -155,20 +155,6 @@ void Box2DWheelJoint::createJoint()
     mInitializePending = false;
 }
 
-void Box2DWheelJoint::release()
-{
-    if (!mReleased)
-        mReleased = true;
-    cleanup(world());
-}
-
-void Box2DWheelJoint::grab()
-{
-    if (mReleased)
-        mReleased = false;
-    createJoint();
-}
-
 void Box2DWheelJoint::cleanup(b2World *world)
 {
     if (mWheelJoint && bodyA() && bodyB()) {
