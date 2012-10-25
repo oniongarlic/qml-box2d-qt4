@@ -9,6 +9,38 @@ Box2DFrictionJoint::Box2DFrictionJoint(QDeclarativeItem *parent) :
 {
 }
 
+float Box2DFrictionJoint::maxForce() const
+{
+    return mFrictionJointDef.maxForce;
+}
+
+void Box2DFrictionJoint::setMaxForce(float force)
+{
+    if (mFrictionJointDef.maxForce == force)
+        return;
+
+    mFrictionJointDef.maxForce = force;
+    if (mFrictionJoint)
+        mFrictionJoint->SetMaxForce(force);
+    emit maxForceChanged();
+}
+
+float Box2DFrictionJoint::maxTorque() const
+{
+    return mFrictionJointDef.maxTorque;
+}
+
+void Box2DFrictionJoint::setMaxTorque(float torque)
+{
+    if (mFrictionJointDef.maxTorque == torque)
+        return;
+
+    mFrictionJointDef.maxTorque = torque;
+    if (mFrictionJoint)
+        mFrictionJoint->SetMaxTorque(torque);
+    emit maxTorqueChanged();
+}
+
 void Box2DFrictionJoint::createJoint()
 {
     mFrictionJointDef.Initialize(bodyA()->body(), bodyB()->body(), bodyA()->body()->GetWorldCenter());
