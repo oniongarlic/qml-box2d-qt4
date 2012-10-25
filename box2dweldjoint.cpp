@@ -9,7 +9,7 @@ Box2DWeldJoint::Box2DWeldJoint(QDeclarativeItem *parent) :
 {
 }
 
-float Box2DWeldJoint::frequency() const
+float Box2DWeldJoint::frequencyHz() const
 {
     return mWeldJointDef.frequencyHz;
 }
