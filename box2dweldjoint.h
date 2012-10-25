@@ -11,14 +11,26 @@ class b2WeldJointDef;
 class Box2DWeldJoint : public Box2DJoint
 {
     Q_OBJECT
+
+    Q_PROPERTY(float frequencyHz READ frequencyHz WRITE setFrequencyHz NOTIFY frequencyHzChanged)
+    Q_PROPERTY(float dampingRatio READ dampingRatio WRITE setDampingRatio NOTIFY dampingRatioChanged)
+
 public:
     explicit Box2DWeldJoint(QDeclarativeItem *parent = 0);
+
+    float frequencyHz() const;
+    void setFrequencyHz(float frequency);
+
+    float dampingRatio() const;
+    void setDampingRatio(float damping);
 
     void createJoint();
     void cleanup(b2World *world);
     void nullifyJoint();
 
 signals:
+    void frequencyHzChanged();
+    void dampingRatioChanged();
 
 public slots:
 
