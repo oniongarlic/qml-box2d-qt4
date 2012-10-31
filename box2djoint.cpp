@@ -147,15 +147,19 @@ void Box2DJoint::bodyBCreated()
 
 void Box2DJoint::release()
 {
-    if (!mReleased)
+    if (!mReleased) {
         mReleased = true;
-    cleanup(world());
+        cleanup(world());
+        emit releasedChanged();
+    }
 }
 
 void Box2DJoint::grab()
 {
-    if (mReleased)
+    if (mReleased) {
         mReleased = false;
-    createJoint();
+        createJoint();
+        emit releasedChanged();
+    }
 }
 
