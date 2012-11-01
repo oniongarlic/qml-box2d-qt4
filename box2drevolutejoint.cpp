@@ -154,6 +154,18 @@ void Box2DRevoluteJoint::setLocalAnchorA(const QPointF &localAnchorA)
     emit localAnchorAChanged();
 }
 
+QPointF const Box2DRevoluteJoint::reactionForce(float inv)
+{
+    const b2Vec2 rf = mRevoluteJoint->GetReactionForce(inv);
+    
+    return QPointF(rf.x, rf.y);
+}
+
+float Box2DRevoluteJoint::reactionTorque(float inv)
+{
+    return mRevoluteJoint->GetReactionTorque(inv);
+}
+
 void Box2DRevoluteJoint::nullifyJoint()
 {
     mRevoluteJoint = 0;

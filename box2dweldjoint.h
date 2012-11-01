@@ -28,6 +28,9 @@ public:
     void cleanup(b2World *world);
     void nullifyJoint();
 
+    Q_INVOKABLE QPointF const reactionForce(float inv);
+    Q_INVOKABLE float reactionTorque(float inv);
+
 signals:
     void frequencyHzChanged();
     void dampingRatioChanged();

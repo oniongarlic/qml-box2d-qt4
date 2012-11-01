@@ -135,6 +135,18 @@ void Box2DWheelJoint::setLocalAnchorA(const QPointF &localAnchorA)
     emit localAnchorAChanged();
 }
 
+QPointF const Box2DWheelJoint::reactionForce(float inv)
+{
+    const b2Vec2 rf = mWheelJoint->GetReactionForce(inv);
+    
+    return QPointF(rf.x, rf.y);
+}
+
+float Box2DWheelJoint::reactionTorque(float inv)
+{
+    return mWheelJoint->GetReactionTorque(inv);
+}
+
 void Box2DWheelJoint::nullifyJoint()
 {
     mWheelJoint = 0;

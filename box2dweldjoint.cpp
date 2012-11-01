@@ -41,6 +41,18 @@ void Box2DWeldJoint::setDampingRatio(float damping)
     emit dampingRatioChanged();
 }
 
+QPointF const Box2DWeldJoint::reactionForce(float inv)
+{
+    const b2Vec2 rf = mWeldJoint->GetReactionForce(inv);
+    
+    return QPointF(rf.x, rf.y);
+}
+
+float Box2DWeldJoint::reactionTorque(float inv)
+{
+    return mWeldJoint->GetReactionTorque(inv);
+}
+
 void Box2DWeldJoint::createJoint()
 {
     mWeldJointDef.Initialize(bodyA()->body(), bodyB()->body(), bodyA()->body()->GetWorldCenter());

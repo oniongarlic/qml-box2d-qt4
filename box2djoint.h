@@ -58,10 +58,13 @@ public:
     void initialize(Box2DWorld *world);
     void componentComplete();
 
-    bool released() const {return mReleased;};
+    bool released() const {return mReleased;}
 
     virtual void nullifyJoint() = 0;
     virtual void cleanup(b2World *world) = 0;
+
+    virtual QPointF const reactionForce(float inv) = 0;
+    virtual float reactionTorque(float inv) = 0;
 
     Q_INVOKABLE void release();
     Q_INVOKABLE void grab();

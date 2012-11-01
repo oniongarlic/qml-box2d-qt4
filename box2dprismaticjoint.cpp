@@ -149,6 +149,18 @@ void Box2DPrismaticJoint::setAxis(const QPointF &axis)
     emit axisChanged();
 }
 
+QPointF const Box2DPrismaticJoint::reactionForce(float inv)
+{
+    const b2Vec2 rf = mPrismaticJoint->GetReactionForce(inv);
+    
+    return QPointF(rf.x, rf.y);
+}
+
+float Box2DPrismaticJoint::reactionTorque(float inv)
+{
+    return mPrismaticJoint->GetReactionTorque(inv);
+}
+
 void Box2DPrismaticJoint::nullifyJoint()
 {
     mPrismaticJoint = 0;

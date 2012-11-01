@@ -145,6 +145,23 @@ void Box2DJoint::bodyBCreated()
     initialize(mWorld);
 }
 
+/*
+QPointF ::reactionForce(float int)
+{
+b2Vec temp=mJoint->GetReactionForce(inv);
+
+mReactionForce.x=temp.x;
+mReactionForce.y=temp.y;
+
+return mReactionForce;
+}
+
+float ::reactionTorque(float inv)
+{
+return mJoint->GetReactionTorque(inv);
+}
+*/
+
 void Box2DJoint::release()
 {
     if (!mReleased) {

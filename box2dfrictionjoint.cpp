@@ -41,6 +41,18 @@ void Box2DFrictionJoint::setMaxTorque(float torque)
     emit maxTorqueChanged();
 }
 
+QPointF const Box2DFrictionJoint::reactionForce(float inv)
+{
+    const b2Vec2 rf = mFrictionJoint->GetReactionForce(inv);
+    
+    return QPointF(rf.x, rf.y);
+}
+
+float Box2DFrictionJoint::reactionTorque(float inv)
+{
+    return mFrictionJoint->GetReactionTorque(inv);
+}
+
 void Box2DFrictionJoint::createJoint()
 {
     mFrictionJointDef.Initialize(bodyA()->body(), bodyB()->body(), bodyA()->body()->GetWorldCenter());

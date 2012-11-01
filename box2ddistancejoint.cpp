@@ -159,6 +159,18 @@ void Box2DDistanceJoint::createJoint()
     mInitializePending = false;
 }
 
+QPointF const Box2DDistanceJoint::reactionForce(float inv)
+{
+    const b2Vec2 rf = mDistanceJoint->GetReactionForce(inv);
+    
+    return QPointF(rf.x, rf.y);
+}
+
+float Box2DDistanceJoint::reactionTorque(float inv)
+{
+    return mDistanceJoint->GetReactionTorque(inv);
+}
+
 void Box2DDistanceJoint::release()
 {
     if (!mReleased)
