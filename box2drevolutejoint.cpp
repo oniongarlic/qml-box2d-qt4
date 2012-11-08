@@ -70,6 +70,11 @@ void Box2DRevoluteJoint::setUpperAngle(float upperAngle)
     emit upperAngleChanged();
 }
 
+float Box2DRevoluteJoint::jointAngle() const
+{
+    return mRevoluteJoint ? mRevoluteJoint->GetJointAngle() : 0;
+}
+
 float Box2DRevoluteJoint::maxMotorTorque() const
 {
     return mRevoluteJointDef.maxMotorTorque;

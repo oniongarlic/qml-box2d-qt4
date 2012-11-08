@@ -36,6 +36,7 @@ class Box2DRevoluteJoint : public Box2DJoint
     Q_PROPERTY(float upperAngle READ upperAngle WRITE setUpperAngle NOTIFY upperAngleChanged)
     Q_PROPERTY(float maxMotorTorque READ maxMotorTorque WRITE setMaxMotorTorque NOTIFY maxMotorTorqueChanged)
     Q_PROPERTY(float motorSpeed READ motorSpeed WRITE setMotorSpeed NOTIFY motorSpeedChanged)
+    Q_PROPERTY(float jointAngle READ jointAngle)
     Q_PROPERTY(bool enableLimit READ enableLimit WRITE setEnableLimit NOTIFY enableLimitChanged)
     Q_PROPERTY(bool enableMotor READ enableMotor WRITE setEnableMotor NOTIFY enableMotorChanged)
     Q_PROPERTY(QPointF localAnchorA READ localAnchorA WRITE setLocalAnchorA NOTIFY localAnchorAChanged)
@@ -55,6 +56,8 @@ public:
 
     float motorSpeed() const;
     void setMotorSpeed(float motorSpeed);
+
+    float jointAngle() const;
 
     bool enableLimit() const;
     void setEnableLimit(bool enableLimit);
