@@ -53,6 +53,7 @@ class Box2DWorld : public QDeclarativeItem
     Q_PROPERTY(QPointF gravity READ gravity WRITE setGravity NOTIFY gravityChanged)
     Q_PROPERTY(bool reportFps READ reportFps WRITE setReportFps NOTIFY reportFpsChanged)
     Q_PROPERTY(float fps READ getFps NOTIFY fpsChanged)
+    Q_PROPERTY(float scaleRatio READ getScaleRatio)
 
 public:
     explicit Box2DWorld(QDeclarativeItem *parent = 0);
@@ -75,6 +76,8 @@ public:
     void setReportFps(bool reportfps);
 
     float getFps() const { return mFps; }
+
+    float getScaleRatio() const { return scaleRatio; }
 
     /**
      * The number of velocity iterations used to process one step.
