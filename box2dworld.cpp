@@ -146,6 +146,15 @@ void Box2DWorld::setGravity(const QPointF &gravity)
     emit gravityChanged();
 }
 
+void Box2DWorld::setReportFps(bool reportfps)
+{
+    if (mFps == reportfps )
+        return;
+
+    mFps = reportfps;
+    emit reportFpsChanged();
+}
+
 void Box2DWorld::componentComplete()
 {
     QDeclarativeItem::componentComplete();
