@@ -1,6 +1,6 @@
 # Box2D sources
 INCLUDEPATH += $$PWD
-SOURCES = \
+SOURCES += \
         $$PWD/Collision/*.cpp \
         $$PWD/Collision/Shapes/*.cpp \
         $$PWD/Common/*.cpp \
@@ -9,7 +9,7 @@ SOURCES = \
         $$PWD/Dynamics/Joints/*.cpp \
         $$PWD/Rope/*.cpp
 
-HEADERS = \
+HEADERS += \
 	$$PWD/Box2D.h \
         $$PWD/Collision/*.h \
         $$PWD/Collision/Shapes/*.h \
