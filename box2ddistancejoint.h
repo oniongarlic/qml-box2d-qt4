@@ -64,9 +64,6 @@ public:
     Q_INVOKABLE QPointF const reactionForce(float inv);
     Q_INVOKABLE float reactionTorque(float inv);
 
-    Q_INVOKABLE void release();
-    Q_INVOKABLE void grab();
-
 signals:
     void lengthChanged();
     void frequencyHzChanged();

@@ -171,20 +171,6 @@ float Box2DDistanceJoint::reactionTorque(float inv)
     return mDistanceJoint->GetReactionTorque(inv);
 }
 
-void Box2DDistanceJoint::release()
-{
-    if (!mReleased)
-        mReleased = true;
-    cleanup(world());
-}
-
-void Box2DDistanceJoint::grab()
-{
-    if (mReleased)
-        mReleased = false;
-    createJoint();
-}
-
 void Box2DDistanceJoint::cleanup(b2World *world)
 {
     if (mDistanceJoint && bodyA() && bodyB()) {
