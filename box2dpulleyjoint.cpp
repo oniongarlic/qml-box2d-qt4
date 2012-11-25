@@ -1,4 +1,4 @@
-#include "box2dweldjoint.h"
+#include "box2dpulleyjoint.h"
 #include "box2dbody.h"
 #include "box2dworld.h"
 
