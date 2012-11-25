@@ -30,10 +30,10 @@ QPointF Box2DPulleyJoint::groundAnchorA() const
 
 void Box2DPulleyJoint::setGroundAnchorA(const QPointF &anchor)
 {
-    if (mPulleyJointDef.groundAnchorA == b2Vec2(anchor.x(), -anchor.y()))
+    if (mPulleyJointDef.groundAnchorA == b2Vec2(anchor.x() / scaleRatio, -anchor.y() / scaleRatio))
         return;
 
-    mPulleyJointDef.groundAnchorA = b2Vec2(anchor.x(), -anchor.y());
+    mPulleyJointDef.groundAnchorA = b2Vec2(anchor.x() / scaleRatio, -anchor.y() / scaleRatio);
 
     emit groundAnchorAChanged();
 }
@@ -45,14 +45,25 @@ QPointF Box2DPulleyJoint::groundAnchorB() const
 
 void Box2DPulleyJoint::setGroundAnchorB(const QPointF &anchor)
 {
-    if (mPulleyJointDef.groundAnchorB == b2Vec2(anchor.x(), -anchor.y()))
+    if (mPulleyJointDef.groundAnchorB == b2Vec2(anchor.x() / scaleRatio, -anchor.y() / scaleRatio))
         return;
 
-    mPulleyJointDef.groundAnchorB = b2Vec2(anchor.x(), -anchor.y());
+    mPulleyJointDef.groundAnchorB = b2Vec2(anchor.x() / scaleRatio, -anchor.y() / scaleRatio);
 
     emit groundAnchorBChanged();
 }
 
+QPointF const Box2DPulleyJoint::reactionForce(float inv)
+{
+    const b2Vec2 rf = mPulleyJoint->GetReactionForce(inv);
+    
+    return QPointF(rf.x, rf.y);
+}
+
+float Box2DPulleyJoint::reactionTorque(float inv)
+{
+    return mPulleyJoint->GetReactionTorque(inv);
+}
 
 void Box2DPulleyJoint::createJoint()
 {

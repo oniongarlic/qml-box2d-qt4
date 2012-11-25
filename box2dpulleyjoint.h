@@ -1,5 +1,5 @@
-#ifndef BOX2DWELDJOINT_H
-#define BOX2DWELDJOINT_H
+#ifndef BOX2DPULLEYJOINT_H
+#define BOX2DPULLEYJOINT_H
 
 #include "box2djoint.h"
 #include <Box2D.h>
@@ -31,6 +31,9 @@ public:
     void createJoint();
     void cleanup(b2World *world);
     void nullifyJoint();
+
+    Q_INVOKABLE QPointF const reactionForce(float inv);
+    Q_INVOKABLE float reactionTorque(float inv);
 
 signals:
     void ratioChanged();
