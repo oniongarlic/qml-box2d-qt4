@@ -65,6 +65,16 @@ float Box2DPulleyJoint::reactionTorque(float inv)
     return mPulleyJoint->GetReactionTorque(inv);
 }
 
+float Box2DPulleyJoint::getLengthA()
+{
+    return mPulleyJoint->GetLengthA();
+}
+
+float Box2DPulleyJoint::getLengthB()
+{
+    return mPulleyJoint->GetLengthB();
+}
+
 void Box2DPulleyJoint::createJoint()
 {
     mPulleyJointDef.Initialize(bodyA()->body(), bodyB()->body(),

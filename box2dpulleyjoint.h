@@ -13,6 +13,8 @@ class Box2DPulleyJoint : public Box2DJoint
     Q_OBJECT
 
     Q_PROPERTY(float ratio READ ratio WRITE setRatio NOTIFY ratioChanged)
+    Q_PROPERTY(float lengthA READ getLengthA)
+    Q_PROPERTY(float lengthB READ getLengthB)
     Q_PROPERTY(QPointF groundAnchorA READ groundAnchorA WRITE setGroundAnchorA NOTIFY groundAnchorAChanged)
     Q_PROPERTY(QPointF groundAnchorB READ groundAnchorB WRITE setGroundAnchorB NOTIFY groundAnchorBChanged)
 
@@ -34,6 +36,9 @@ public:
 
     Q_INVOKABLE QPointF const reactionForce(float inv);
     Q_INVOKABLE float reactionTorque(float inv);
+
+    Q_INVOKABLE float getLengthA();
+    Q_INVOKABLE float getLengthB();
 
 signals:
     void ratioChanged();
