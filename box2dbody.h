@@ -132,8 +132,8 @@ private slots:
     void onRotationChanged();
 
 private:
-    static void append_fixture(QDeclarativeListProperty<Box2DFixture> *list,
-                               Box2DFixture *fixture);
+    static void append_fixture(QDeclarativeListProperty<Box2DFixture> *list, Box2DFixture *fixture);
+    static int count_fixture(QDeclarativeListProperty<Box2DFixture> *list);
 
     b2Body *mBody;
     b2World *mWorld;

@@ -167,16 +167,20 @@ void Box2DBody::resetVelocities()
 
 QDeclarativeListProperty<Box2DFixture> Box2DBody::fixtures()
 {
-    return QDeclarativeListProperty<Box2DFixture>(this, 0,
-                                                  &Box2DBody::append_fixture);
+    return QDeclarativeListProperty<Box2DFixture>(this, 0, &Box2DBody::append_fixture, &Box2DBody::count_fixture);
 }
 
-void Box2DBody::append_fixture(QDeclarativeListProperty<Box2DFixture> *list,
-                               Box2DFixture *fixture)
+void Box2DBody::append_fixture(QDeclarativeListProperty<Box2DFixture> *list, Box2DFixture *fixture)
 {
     Box2DBody *body = static_cast<Box2DBody*>(list->object);
     fixture->setParentItem(body);
     body->mFixtures.append(fixture);
+}
+
+int Box2DBody::count_fixture(QDeclarativeListProperty<Box2DFixture> *list)
+{
+    Box2DBody *body = static_cast<Box2DBody*>(list->object);
+    return body->mFixtures.count();
 }
 
 void Box2DBody::initialize(b2World *world)
