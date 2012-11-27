@@ -31,6 +31,7 @@ SOURCES += box2dplugin.cpp \
     box2dpulleyjoint.cpp \
     box2dwheeljoint.cpp \
     box2dfrictionjoint.cpp \
+    box2dropejoint.cpp \
     box2ddestructionlistener.cpp
 
 HEADERS += \
@@ -47,6 +48,7 @@ HEADERS += \
     box2dpulleyjoint.h \
     box2dwheeljoint.h \
     box2dfrictionjoint.h \
+    box2dropejoint.h \
     box2ddestructionlistener.h
 
 OTHER_FILES += \
