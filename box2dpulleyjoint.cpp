@@ -56,7 +56,7 @@ void Box2DPulleyJoint::setGroundAnchorB(const QPointF &anchor)
 QPointF const Box2DPulleyJoint::reactionForce(float inv)
 {
     const b2Vec2 rf = mPulleyJoint->GetReactionForce(inv);
-    
+
     return QPointF(rf.x, rf.y);
 }
 
@@ -67,12 +67,16 @@ float Box2DPulleyJoint::reactionTorque(float inv)
 
 float Box2DPulleyJoint::getLengthA()
 {
-    return mPulleyJoint->GetLengthA();
+    if (mPulleyJoint)
+        return mPulleyJoint->GetLengthA() * scaleRatio;
+    return mPulleyJointDef.lengthA;
 }
 
 float Box2DPulleyJoint::getLengthB()
 {
-    return mPulleyJoint->GetLengthB();
+    if (mPulleyJoint)
+        return mPulleyJoint->GetLengthB() * scaleRatio;
+    return mPulleyJointDef.lengthB;
 }
 
 void Box2DPulleyJoint::createJoint()
