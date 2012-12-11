@@ -72,6 +72,8 @@ public:
     Q_INVOKABLE QPointF const reactionForce(float inv);
     Q_INVOKABLE float reactionTorque(float inv);
 
+    Q_INVOKABLE float jointSpeed();
+
 signals:
     void frequencyHzChanged();
     void dampingRatioChanged();

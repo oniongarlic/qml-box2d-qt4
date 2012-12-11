@@ -147,6 +147,11 @@ float Box2DWheelJoint::reactionTorque(float inv)
     return mWheelJoint->GetReactionTorque(inv);
 }
 
+float Box2DWheelJoint::jointSpeed()
+{
+    return mWheelJoint->GetJointSpeed();
+}
+
 void Box2DWheelJoint::nullifyJoint()
 {
     mWheelJoint = 0;

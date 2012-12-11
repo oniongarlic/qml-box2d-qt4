@@ -27,7 +27,8 @@ Box2DRevoluteJoint::Box2DRevoluteJoint(QDeclarativeItem *parent) :
     Box2DJoint(parent),
     mRevoluteJointDef(),
     mRevoluteJoint(0),
-    mOverrideLocalAnchorA(false)
+    mOverrideLocalAnchorA(false),
+    mOverrideLocalAnchorB(false)
 {
 }
 
@@ -159,6 +160,26 @@ void Box2DRevoluteJoint::setLocalAnchorA(const QPointF &localAnchorA)
     emit localAnchorAChanged();
 }
 
+QPointF Box2DRevoluteJoint::localAnchorB() const
+{
+    if (mOverrideLocalAnchorB)
+        return mLocalAnchorB;
+    else
+        return QPointF(mRevoluteJointDef.localAnchorB.x * scaleRatio,
+                       -mRevoluteJointDef.localAnchorB.y * scaleRatio);
+}
+
+void Box2DRevoluteJoint::setLocalAnchorB(const QPointF &localAnchorB)
+{
+    if (mOverrideLocalAnchorB && mLocalAnchorB == localAnchorB)
+        return;
+
+    mOverrideLocalAnchorB = true;
+    mLocalAnchorB = localAnchorB;
+
+    emit localAnchorBChanged();
+}
+
 QPointF const Box2DRevoluteJoint::reactionForce(float inv)
 {
     const b2Vec2 rf = mRevoluteJoint->GetReactionForce(inv);
@@ -169,6 +190,11 @@ QPointF const Box2DRevoluteJoint::reactionForce(float inv)
 float Box2DRevoluteJoint::reactionTorque(float inv)
 {
     return mRevoluteJoint->GetReactionTorque(inv);
+}
+
+float Box2DRevoluteJoint::jointSpeed()
+{
+    return mRevoluteJoint->GetJointSpeed();
 }
 
 void Box2DRevoluteJoint::nullifyJoint()

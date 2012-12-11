@@ -47,8 +47,7 @@ void Box2DPrismaticJoint::setLowerTranslation(float lowerTranslation)
 
     mPrismaticJointDef.lowerTranslation = lowerTranslation;
     if (mPrismaticJoint)
-        mPrismaticJoint->SetLimits(lowerTranslation,
-                                   mPrismaticJointDef.upperTranslation);
+        mPrismaticJoint->SetLimits(lowerTranslation / scaleRatio, mPrismaticJointDef.upperTranslation / scaleRatio);
     emit lowerTranslationChanged();
 }
 
@@ -64,8 +63,7 @@ void Box2DPrismaticJoint::setUpperTranslation(float upperTranslation)
 
     mPrismaticJointDef.upperTranslation = upperTranslation;
     if (mPrismaticJoint)
-        mPrismaticJoint->SetLimits(mPrismaticJointDef.lowerTranslation,
-                                   upperTranslation);
+        mPrismaticJoint->SetLimits(mPrismaticJointDef.lowerTranslation / scaleRatio, upperTranslation / scaleRatio);
     emit upperTranslationChanged();
 }
 
@@ -135,8 +133,7 @@ void Box2DPrismaticJoint::setEnableMotor(bool enableMotor)
 
 QPointF Box2DPrismaticJoint::axis() const
 {
-    return QPointF(mPrismaticJointDef.localAxisA.x,
-                   -mPrismaticJointDef.localAxisA.y);
+    return QPointF(mPrismaticJointDef.localAxisA.x, -mPrismaticJointDef.localAxisA.y);
 }
 
 void Box2DPrismaticJoint::setAxis(const QPointF &axis)
@@ -161,6 +158,11 @@ float Box2DPrismaticJoint::reactionTorque(float inv)
     return mPrismaticJoint->GetReactionTorque(inv);
 }
 
+float Box2DPrismaticJoint::jointSpeed()
+{
+    return mPrismaticJoint->GetJointSpeed();
+}
+
 void Box2DPrismaticJoint::nullifyJoint()
 {
     mPrismaticJoint = 0;
@@ -173,8 +175,7 @@ void Box2DPrismaticJoint::createJoint()
                                   mPrismaticJointDef.localAxisA);
     mPrismaticJointDef.collideConnected = collideConnected();
 
-    mPrismaticJoint = static_cast<b2PrismaticJoint*>
-            (world()->CreateJoint(&mPrismaticJointDef));
+    mPrismaticJoint = static_cast<b2PrismaticJoint*>(world()->CreateJoint(&mPrismaticJointDef));
     mPrismaticJoint->SetUserData(this);
     mInitializePending = false;
 }
