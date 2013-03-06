@@ -93,6 +93,7 @@ Rectangle {
 	}
 
 	RopeJoint {
+		id: rj1
 		bodyA: pp1
 		bodyB: wb1
 		maxLength: 250
@@ -105,10 +106,25 @@ Rectangle {
 	}
 
         MovableBox {
-            id: movableBox
-            width: 40
-            height: width
+		id: movableBox
+		x: 100
+		width: 40
+		height: width
         }
+
+	Line {
+		x1: pp1.x;
+		y1: pp1.y;
+		x2: rj1.x;
+		y2: rj1.y;
+	}
+
+	Line {
+		x1: pp2.x;
+		y1: pp2.y;
+		x2: wb2.x;
+		y2: wb2.y;
+	}
 
         Wall {
             id: ground
@@ -133,7 +149,7 @@ Rectangle {
         DebugDraw {
 		world: world
 	        opacity: 0.75
-		visible: false;
+		visible: true;
         }
     }
 }
