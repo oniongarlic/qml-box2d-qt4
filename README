@@ -1,5 +1,22 @@
 QML Box2D plugin
 ----------------
+This is fork of the Box2D-QML bindings (from https://gitorious.org/qml-box2d), providing updated Box2D version (2.2.1) and more features.
+
+Features include:
+
+ Box2D upgraded to 2.2.1
+ Joint release/grab
+ WeldJoint added
+ WheelJoint added
+ FrictionJoint added
+ Basic Edge shape support added 
+ Missing properties and methods added (gravityScale, getMass(), getInertia(), angularVelocity, etc)
+ Body fixture iteration added
+
+This version is maintained by Kaj-Michael Lang <milang@tal.org>
+
+Original README below:
+-----------------------------------------------------------------------------
 
 This plugin is meant to be installed to your Qt/imports directory, or shipped
 in a directory of which the parent is added as import path.
