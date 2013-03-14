@@ -29,6 +29,9 @@
 
 #include <Box2D.h>
 
+#define FPS_REPORT_MARGIN 2
+#define MONITOR_FPS
+
 class ContactEvent
 {
 public:
@@ -87,10 +90,12 @@ Box2DWorld::Box2DWorld(QDeclarativeItem *parent) :
     mGravity(qreal(0), qreal(-10)),
     mIsRunning(true),
     mAllowSleeping(true),
-    mFps(0)
+    mFps(0),
+    mReportFps(false)
 {
     connect(mDestructionListener, SIGNAL(fixtureDestroyed(Box2DFixture*)),
             this, SLOT(fixtureDestroyed(Box2DFixture*)));
+    time = QTime();
 }
 
 Box2DWorld::~Box2DWorld()
@@ -148,10 +153,15 @@ void Box2DWorld::setGravity(const QPointF &gravity)
 
 void Box2DWorld::setReportFps(bool reportfps)
 {
-    if (mFps == reportfps )
+    if (mReportFps == reportfps )
         return;
+        
+    mReportFps = reportfps;
+    if (mReportFps) {
+        time.start();
+        lastTime = time.elapsed();
+    }
 
-    mFps = reportfps;
     emit reportFpsChanged();
 }
 
@@ -214,7 +224,19 @@ void Box2DWorld::fixtureDestroyed(Box2DFixture *fixture)
 
 void Box2DWorld::timerEvent(QTimerEvent *event)
 {
-    if (event->timerId() == mTimer.timerId()) {
+    if (event->timerId() == mTimer.timerId()) { 
+#ifdef MONITOR_FPS
+        if (mReportFps) {
+        	float tempTime = time.elapsed();
+	        float timeStep = (tempTime - lastTime);
+        	lastTime = tempTime;
+	        int tempFps = 1000.0f/timeStep;
+        	if (tempFps < mFps-FPS_REPORT_MARGIN || tempFps > mFps+FPS_REPORT_MARGIN) {
+        	    mFps = tempFps;
+	            emit fpsChanged();
+        	}
+        }
+#endif
         mWorld->Step(mTimeStep, mVelocityIterations, mPositionIterations);
         foreach (Box2DBody *body, mBodies)
             body->synchronize();
