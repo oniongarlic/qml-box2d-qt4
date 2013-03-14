@@ -11,15 +11,21 @@ Rectangle {
     Keys.onReleased: onKeysReleased(event)
 
     function onKeysPressed(event) {
-        if (event.key == Qt.Key_Left) {
+        switch (event.key) {
+        case Qt.Key_Left:
             movableBox.moveBackward();
-        }
-        else if (event.key == Qt.Key_Right) {
+        break;
+        case Qt.Key_Right:
             movableBox.moveForward();
-        }
-        else if (event.key == Qt.Key_Up) {
+        break;
+        case Qt.Key_Up:
             movableBox.jump();
-        }
+        break;
+        case Qt.Key_F:
+            world.reportFps!=world.reportFps;
+            console.debug("ReportFps: "+world.reportFps)
+        break;
+        } 
     }
 
     function onKeysReleased(event) {
@@ -33,20 +39,28 @@ Rectangle {
 
     Text {
 	id: lena;
-	x: 10
-	y: 32
+	anchors.left: parent.left;
+	y: 120
 	text: "--"
     }
     Text {
 	id: lenb;
-	x: 10
-	y: 64
+	anchors.right: parent.right
+	y: 120
 	text: "--"
     }
+    Text {
+	id: fps
+        visible: world.reportFps
+	anchors.left: parent.left
+	anchors.bottom: parent.bottom
+	text: "FPS:"+world.fps
+    }
+
 
     Timer {
 	repeat: true;
-	interval: 250
+	interval: 100
 	running: true
 	onTriggered: {
 		lena.text=pj.getLengthA();
@@ -57,15 +71,16 @@ Rectangle {
     World {
         id: world;
         anchors.fill: parent
+        reportFps: true;
 
 	WoodenBox {
-		id: wb1
+	    id: wb1
             x: 100
             y: 180
         }
 
 	WoodenBox {
-		id: wb2
+	    id: wb2
             x: 300
             y: 180
         }
