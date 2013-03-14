@@ -155,7 +155,7 @@ void Box2DWorld::setReportFps(bool reportfps)
 {
     if (mReportFps == reportfps )
         return;
-        
+
     mReportFps = reportfps;
     if (mReportFps) {
         time.start();
@@ -169,7 +169,7 @@ void Box2DWorld::componentComplete()
 {
     QDeclarativeItem::componentComplete();
 
-    const b2Vec2 gravity(mGravity.x(), mGravity.y());    
+    const b2Vec2 gravity(mGravity.x(), mGravity.y());
 
     mWorld = new b2World(gravity);
     mWorld->SetContactListener(mContactListener);
@@ -224,7 +224,7 @@ void Box2DWorld::fixtureDestroyed(Box2DFixture *fixture)
 
 void Box2DWorld::timerEvent(QTimerEvent *event)
 {
-    if (event->timerId() == mTimer.timerId()) { 
+    if (event->timerId() == mTimer.timerId()) {
 #ifdef MONITOR_FPS
         if (mReportFps) {
         	float tempTime = time.elapsed();
