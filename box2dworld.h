@@ -34,9 +34,14 @@ class Box2DDestructionListener;
 
 class b2World;
 
-// TODO: Maybe turn this into a property of the world, though it can't be
-// changed dynamically.
-static const float scaleRatio = 32.0f; // 32 pixels in one meter
+/**
+ * Default to 32 pixels in one meter, for static build you can set your own
+ * TODO: Maybe turn this into a property of the world, though it can't be changed dynamically.
+ */
+#ifndef QML_BOX2D_SCALERATIO
+#define QML_BOX2D_SCALERATIO (32.0f)
+#endif
+static const float scaleRatio = QML_BOX2D_SCALERATIO; 
 
 /**
  * Wrapper class around a Box2D world.
