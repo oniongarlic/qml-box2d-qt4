@@ -31,6 +31,7 @@
 
 #define FPS_REPORT_MARGIN 2
 #define MONITOR_FPS
+// #define HALVE_FPS
 
 class ContactEvent
 {
@@ -224,6 +225,7 @@ void Box2DWorld::fixtureDestroyed(Box2DFixture *fixture)
 
 void Box2DWorld::timerEvent(QTimerEvent *event)
 {
+    static bool flipflop=true;
     if (event->timerId() == mTimer.timerId()) {
 #ifdef MONITOR_FPS
         if (mReportFps) {
@@ -238,8 +240,14 @@ void Box2DWorld::timerEvent(QTimerEvent *event)
         }
 #endif
         mWorld->Step(mTimeStep, mVelocityIterations, mPositionIterations);
-        foreach (Box2DBody *body, mBodies)
-            body->synchronize();
+
+#ifdef HALVE_FPS
+	if (flipflop) {
+	        foreach (Box2DBody *body, mBodies)
+        	    body->synchronize();
+	}
+	flipflop=!flipflop;
+#endif
 
         // Emit contact signals
         foreach (const ContactEvent &event, mContactListener->events()) {
