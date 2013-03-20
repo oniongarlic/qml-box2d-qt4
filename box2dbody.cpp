@@ -228,6 +228,15 @@ void Box2DBody::initialize(b2World *world)
 void Box2DBody::synchronize()
 {
     Q_ASSERT(mBody);
+
+    // If the body is inactive or sleeping it does not need to be moved, so skip
+    if (!mBody->IsActive() || !mBody->IsAwake())
+        return;
+
+    // If the item isn't visible, don't bother with it either
+    if (isVisibleTo(0)==false)
+        return;
+
     mSynchronizing = true;
 
     const b2Vec2 position = mBody->GetPosition();
