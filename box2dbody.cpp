@@ -134,6 +134,7 @@ void Box2DBody::setActive(bool active)
     mActive = active;
     if (mBody)
         mBody->SetActive(active);
+    emit activeChanged();
 }
 
 void Box2DBody::setLinearVelocity(const QPointF &linearVelocity)

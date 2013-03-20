@@ -44,7 +44,7 @@ class Box2DBody : public QDeclarativeItem
     Q_PROPERTY(bool bullet READ isBullet WRITE setBullet NOTIFY bulletChanged)
     Q_PROPERTY(bool sleepingAllowed READ sleepingAllowed WRITE setSleepingAllowed NOTIFY sleepingAllowedChanged)
     Q_PROPERTY(bool fixedRotation READ fixedRotation WRITE setFixedRotation NOTIFY fixedRotationChanged)
-    Q_PROPERTY(bool active READ active WRITE setActive)
+    Q_PROPERTY(bool active READ active WRITE setActive NOTIFY activeChanged)
     Q_PROPERTY(QPointF linearVelocity READ linearVelocity WRITE setLinearVelocity NOTIFY linearVelocityChanged)
     Q_PROPERTY(float angularVelocity READ angularVelocity WRITE setAngularVelocity NOTIFY angularVelocityChanged)
     Q_PROPERTY(float mass READ getMass)
@@ -126,6 +126,7 @@ signals:
     void fixedRotationChanged();
     void linearVelocityChanged();
     void angularVelocityChanged();
+    void activeChanged();
     void bodyCreated();
 
 private slots:
