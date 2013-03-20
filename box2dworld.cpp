@@ -247,6 +247,9 @@ void Box2DWorld::timerEvent(QTimerEvent *event)
         	    body->synchronize();
 	}
 	flipflop=!flipflop;
+#else
+        foreach (Box2DBody *body, mBodies)
+       	    body->synchronize();
 #endif
 
         // Emit contact signals
