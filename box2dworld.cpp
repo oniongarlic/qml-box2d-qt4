@@ -29,9 +29,8 @@
 
 #include <Box2D.h>
 
-#define FPS_REPORT_MARGIN 2
 #define MONITOR_FPS
-// #define HALVE_FPS
+#define DYNAMIC_FPS
 
 class ContactEvent
 {
@@ -133,10 +132,14 @@ void Box2DWorld::setRunning(bool running)
     emit runningChanged();
 
     if (isComponentComplete()) {
-        if (running)
+        if (running) {
+            mAc=0.0f;
+            time.start();
+            lastTime = time.elapsed();
             mTimer.start(mFrameTime, this);
-        else
+        } else {
             mTimer.stop();
+        }
     }
 }
 
@@ -158,10 +161,6 @@ void Box2DWorld::setReportFps(bool reportfps)
         return;
 
     mReportFps = reportfps;
-    if (mReportFps) {
-        time.start();
-        lastTime = time.elapsed();
-    }
 
     emit reportFpsChanged();
 }
@@ -184,8 +183,12 @@ void Box2DWorld::componentComplete()
             registerJoint(joint);
         }
 
-    if (mIsRunning)
+    if (mIsRunning) {
+        mAc=0.0f;
+        time.start();
+        lastTime = time.elapsed();
         mTimer.start(mFrameTime, this);
+    }
 }
 
 /**
@@ -225,29 +228,32 @@ void Box2DWorld::fixtureDestroyed(Box2DFixture *fixture)
 
 void Box2DWorld::timerEvent(QTimerEvent *event)
 {
-    static bool flipflop=true;
     if (event->timerId() == mTimer.timerId()) {
-#ifdef MONITOR_FPS
+    	float tempTime = time.elapsed();
+        float timeStep = (tempTime - lastTime);
+      	lastTime = tempTime;
         if (mReportFps) {
-        	float tempTime = time.elapsed();
-	        float timeStep = (tempTime - lastTime);
-        	lastTime = tempTime;
 	        int tempFps = 1000.0f/timeStep;
-        	if (tempFps < mFps-FPS_REPORT_MARGIN || tempFps > mFps+FPS_REPORT_MARGIN) {
+	       	if (tempFps < mFps || tempFps > mFps) {
         	    mFps = tempFps;
 	            emit fpsChanged();
         	}
         }
-#endif
-        mWorld->Step(mTimeStep, mVelocityIterations, mPositionIterations);
 
-#ifdef HALVE_FPS
-	if (flipflop) {
-	        foreach (Box2DBody *body, mBodies)
-        	    body->synchronize();
+#ifdef DYNAMIC_FPS
+	float fst=timeStep/1000.0f;
+
+	if (fst>mTimeStep*4)
+		fst=mTimeStep*4;
+
+	mAc += fst;
+
+        while (mAc >= mTimeStep) {
+	        mWorld->Step(mTimeStep, mVelocityIterations, mPositionIterations);
+		mAc -= mTimeStep;
 	}
-	flipflop=!flipflop;
 #else
+        mWorld->Step(mTimeStep, mVelocityIterations, mPositionIterations);
         foreach (Box2DBody *body, mBodies)
        	    body->synchronize();
 #endif

@@ -159,6 +159,7 @@ private:
     int mFps;
     bool mReportFps;
     float lastTime;
+    float mAc;
 };
 
 QML_DECLARE_TYPE(Box2DWorld)
