@@ -252,6 +252,8 @@ void Box2DWorld::timerEvent(QTimerEvent *event)
 	        mWorld->Step(mTimeStep, mVelocityIterations, mPositionIterations);
 		mAc -= mTimeStep;
 	}
+        foreach (Box2DBody *body, mBodies)
+       	    body->synchronize();
 #else
         mWorld->Step(mTimeStep, mVelocityIterations, mPositionIterations);
         foreach (Box2DBody *body, mBodies)
