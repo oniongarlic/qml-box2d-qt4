@@ -75,6 +75,7 @@ Image {
 			}
 		}
 	    onReleased: {
+		mj.release();
 		mj.destroy();
 	    }
         }
