@@ -33,6 +33,7 @@
 #include "box2dfrictionjoint.h"
 #include "box2dpulleyjoint.h"
 #include "box2dropejoint.h"
+#include "box2dmousejoint.h"
 
 Box2DPlugin::Box2DPlugin(QObject *parent) :
     QDeclarativeExtensionPlugin(parent)
@@ -60,6 +61,7 @@ void Box2DPlugin::registerTypes(const char *uri)
     qmlRegisterType<Box2DFrictionJoint>(uri, 1, 0, "FrictionJoint");
     qmlRegisterType<Box2DPulleyJoint>(uri, 1, 0, "PulleyJoint");
     qmlRegisterType<Box2DRopeJoint>(uri, 1, 0, "RopeJoint");
+    qmlRegisterType<Box2DMouseJoint>(uri, 1, 0, "MouseJoint");
 }
 
 Q_EXPORT_PLUGIN2(Box2DPlugin, Box2DPlugin)
