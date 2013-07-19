@@ -60,7 +60,7 @@ void Box2DMouseJoint::setDampingRatio(float damping)
 QPointF const Box2DMouseJoint::reactionForce(float inv)
 {
     const b2Vec2 rf = mMouseJoint->GetReactionForce(inv);
-    
+
     return QPointF(rf.x, rf.y);
 }
 
@@ -71,14 +71,17 @@ float Box2DMouseJoint::reactionTorque(float inv)
 
 void Box2DMouseJoint::setTarget(const QPointF &targetxy)
 {
-    qDebug() << "TXY: " << targetxy;
-    mMouseJoint->SetTarget(b2Vec2(targetxy.x() / scaleRatio, -targetxy.y() / scaleRatio));
+    if (mMouseJoint) {
+        mMouseJoint->SetTarget(b2Vec2(targetxy.x() / scaleRatio, -targetxy.y() / scaleRatio));
+    } else {
+        mMouseJointDef.target = b2Vec2(x() / scaleRatio, -y() / scaleRatio);
+    }
 }
 
 QPointF const Box2DMouseJoint::getTarget()
 {
     const b2Vec2 rf = mMouseJoint->GetTarget();
-    
+
     return QPointF(rf.x, rf.y);
 }
 
