@@ -12,6 +12,7 @@ Features include:
  Basic Edge shape support added 
  Missing properties and methods added (gravityScale, getMass(), getInertia(), angularVelocity, etc)
  Body fixture iteration added
+ MouseJoint added
 
 This version is maintained by Kaj-Michael Lang <milang@tal.org>
 http://maemo.tal.org/index.php/maemo:box2d_qml
