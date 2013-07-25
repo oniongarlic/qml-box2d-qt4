@@ -14,9 +14,15 @@ Image {
 
 	WoodenBox {
 		id: wb
-               x: Math.random() * (screen.width - 100);
-               y: Math.random() * (screen.height / 3);
-               rotation: Math.random() * 90;
+		x: Math.random() * (screen.width - 100);
+		y: Math.random() * (screen.height / 3);
+		rotation: Math.random() * 90;
+        }
+	WoodenBox {
+		id: wb2
+		x: Math.random() * (screen.width - 200);
+		y: Math.random() * (screen.height / 3);
+		rotation: Math.random() * 90;
         }
 
         Wall {
@@ -45,7 +51,7 @@ Image {
             world: world
             anchors.fill: world
             opacity: 0.75
-            visible: true
+            visible: false
         }
 
 	Component {
@@ -56,12 +62,16 @@ Image {
 		}
 	}
 
+	Body {
+		id: dummy;
+	}
+
         MouseArea {
 		property variant mj;
-            anchors.fill: world
-            onPressed: {
-		mj=mjc.createObject(world, {"x": mouse.x, "y": mouse.y, "maxForce": 1000*wb.mass, "dampingRatio": 1.0, "bodyA": ground, "bodyB": wb })
-		mj.setTarget(Qt.point(mouse.x, mouse.y));
+		anchors.fill: world
+		onPressed: {
+			mj=mjc.createObject(world, {"x": mouse.x, "y": mouse.y, "maxForce": 1000*wb.mass, "dampingRatio": 1.0, "bodyA": dummy, "bodyB": wb })
+			mj.setTarget(Qt.point(mouse.x, mouse.y));
 		}
 		onPositionChanged: {
 		if (mj && pressed) {
